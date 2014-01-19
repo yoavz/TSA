@@ -14,23 +14,29 @@ block body
       ul.nav.navbar-nav
       
   .container      
-    div(ng-controller='MainController')
-      .jumbotron
-        h1 Twatter
-        h3 Tweets per Second: 
-          span( ng-bind = "tps | number" )
-        h3 Total Tweets Analyzed: 
-          span( ng-bind = "tweetCount" )
-        h3 Average Sentiment: 
-          span( ng-bind = "averageSentiment | number")
+    div(ng-controller='MainController', ng-init="init()")
       div.row
-        .col-md-4.col-md-offset-4
+        .col-md-6
+          .jumbotron
+            h1 Twatter
+            h3 Analyzing: 
+              span( ng-bind = " phrase ")
+            h3 Tweets per Second: 
+              span( ng-bind = "tps | number" )
+            h3 Total Tweets Analyzed: 
+              span( ng-bind = "tweetCount" )
+            h3 Average Sentiment: 
+              span( ng-bind = "averageSentiment | number")
+        .col-md-6
+          chart.chart-size
+      div.row
+        .col-md-6
           input.input-lg.form-control(type="text", ng-model="inputData.text", placeholder="Justin Bieber")
       div.row
-        .col-md-2.col-md-offset-4.text-center.padding
-          button.btn.btn-success.btn-lg(type="button", ng-click="start()") Start
-        .col-md-2.text-center.padding
-          button.btn.btn-danger.btn-lg(type="button", ng-click="stop()") Stop   
+        .col-md-3.text-center.padding
+          button.btn.btn-success.btn-lg(type="button", ng-click="start()", ng-disabled="disableButtons") Start
+        .col-md-3.text-center.padding
+          button.btn.btn-danger.btn-lg(type="button", ng-click="stop()", ng-disabled="disableButtons") Stop   
 
       hr
 

@@ -34,36 +34,24 @@ angular.module('twitter.controllers', []).
               profile_image_url: 'https://pbs.twimg.com/profile_images/344513261565453503/146e141cca48e4c1cbab00dd72adbff9_bigger.jpeg'
             },
             style: { class: 'panel-info'}}];
+
+  $scope.phrase = "";
   $scope.tweetCount = 0;
   $scope.totalSentiment = 0;
   $scope.averageSentiment = 0;
   $scope.sentimentColor = '000000';
   $scope.tps = 0;
   $scope.plotData = [[1, 2], [2, 3], [3, 4]];
-
-
-  //var socket = io.connect('http://localhost:3001');
+  $scope.disableButtons = false;
 
   socket.on('tweet', function (data) {
+    $scope.disableButtons = false;
+
     //calculate sentiment
     $scope.tweetCount++;
     $scope.totalSentiment += data.sentiment;
     $scope.averageSentiment = $scope.totalSentiment / $scope.tweetCount ;
     $scope.tps = $scope.tweetCount / ( (new Date().getTime() / 1000) - start);
-
-    // $scope.sentimentColor = function() {
-    //   var rating = data.sentiment;
-
-    //   if (rating < -5 || rating > 5)
-    //     rating = 0;
-
-    //   var b = 0;  
-    //   var r = (255 * rating) / 10;
-    //   var g = (255 * (10-rating)) / 10;
-
-    //   var sColor = '#' + RGBToHex(r, g, b);
-    //   return { color: sColor + ' !important;'};
-    // } 
 
     //if it has been two seconds since the last tweet, display it
     var currentTime = new Date().getTime() / 1000;
@@ -84,26 +72,27 @@ angular.module('twitter.controllers', []).
 
   //grab the most recent tweets
   $scope.start = function() {
+    $scope.disableButtons = true;
+
     $scope.tweetCount = 0;
     $scope.totalSentiment = 0;
     $scope.averageSentiment = 0;
 
-    $http.post('/api/start', $scope.inputData)
-      .success(function(data) {
-        console.log(data);
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
+    var input = $scope.inputData.text.trim();
+    if (input.length > 0) {
+      socket.emit('start', {phrase: input});
+      $scope.phrase = input;
+    } else {
+      console.log('Invalid phrase')
+    }
   };
 
   $scope.stop = function() {
-    $http.post('/api/stop')
-      .success(function (data) {
-        console.log(data);
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
+    socket.emit('stop', null);
+  }
+
+  $scope.init = function() {
+    socket.emit('get_trends', null); 
+    console.log('init')
   }
 });

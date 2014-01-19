@@ -5,6 +5,15 @@ body {
   padding-top:70px;
 }
 
+.btn {
+  width: 100%;
+}
+
+.jumbotron {
+  background-image: url('../img/stardust.png');
+  color: #ffffff;
+}
+
 .chart-size {
   width:600px;
   height:400px;
