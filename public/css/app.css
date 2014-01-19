@@ -1,30 +1,65 @@
 /* app css stylesheet */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+body {
+  background-image: url('../img/old_moon.png');
+  padding-top:70px;
 }
 
-.menu:before {
-  content: "[";
+.chart-size {
+  width:600px;
+  height:400px;
 }
 
-.menu:after {
-  content: "]";
+.navbar_bg {
+  background-image: url('../img/stardust.png');
 }
 
-.menu > li {
-  display: inline;
+.tweet-panel {
+  font-family: "Lato";
+ 	font-size: 20px;
+  color: #555;
 }
 
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
+.created-at {
+	font-size: 13px;
+	color: gray;
 }
 
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
+.user {
+	padding:0px 10px;
+}
+
+.padding {
+	padding: 10px 10px 10px 10px;
+}
+
+/* CSS3 transformations */
+
+.animate-repeat {
+  line-height:40px;
+  list-style:none;
+  box-sizing:border-box;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -moz-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+  opacity:0;
+  max-height:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:100px;
 }
