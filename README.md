@@ -12,6 +12,8 @@ blocks of text, (in our case tweets).
 
 clone the repository
 
+Add in twitter API keys and access tokens in app.js
+
 ```shell
 npm install
 node app.js
