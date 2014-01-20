@@ -1,3 +1,5 @@
+![Go Bruins!](http://i.imgur.com/bzniPwy.png)
+
 ## TSA - Twitter Sentiment Analysis
 
 Type in any phrase you would like to get a live stream of tweets and a visualization of their sentiment.
