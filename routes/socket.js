@@ -25,9 +25,9 @@ module.exports = function (socket) {
   	if (!tweeter)
   		tweeter = twitterConnection();
 
-  	tweeter.get('trends/1.json', null, function (data) {
-  		console.log(data);
-  	})
+    tweeter.get('trends/place.json', {id: 1}, function(data) {
+      console.log(data);
+    })
   });
 
   socket.on('start', function (data) {
@@ -44,7 +44,7 @@ module.exports = function (socket) {
                     if (err)
                         console.log('Socket ' + socket.id + ': sentiment error: '+ err)
                     else {
-                        data.sentiment = result.score;
+                        data.sentiment = result.score + 5;
                         socket.emit('tweet', data);
                     }
                 }) 

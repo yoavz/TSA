@@ -5,6 +5,13 @@ body {
   padding-top:70px;
 }
 
+
+
+#flot-placeholder{
+  width:600px;
+  height:400px;
+}
+
 .btn {
   width: 100%;
 }
@@ -14,10 +21,6 @@ body {
   color: #ffffff;
 }
 
-.chart-size {
-  width:600px;
-  height:400px;
-}
 
 .navbar_bg {
   background-image: url('../img/stardust.png');

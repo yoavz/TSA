@@ -21,10 +21,9 @@ function rating_to_hex_color(rating) {
 /* Controllers */
 
 angular.module('twitter.controllers', []).
-  controller('MainController', function ($scope, $http, socket) {
+  controller('MainController', function ($scope, $http, socket, $timeout) {
   
-  var time = new Date().getTime() / 1000; 
-  var start = new Date().getTime() / 1000;
+  var time, start;
 
   $scope.inputData = {};
   $scope.displayTweets = [{created_at: 'time',
@@ -41,27 +40,37 @@ angular.module('twitter.controllers', []).
   $scope.averageSentiment = 0;
   $scope.sentimentColor = '000000';
   $scope.tps = 0;
-  $scope.plotData = [[1, 2], [2, 3], [3, 4]];
   $scope.disableButtons = false;
 
+  $scope.plotCounter = 0;
+  $scope.plotData = [[0, 0]];
+
   socket.on('tweet', function (data) {
+    var currentTime = new Date().getTime() / 1000.0;
+
     $scope.disableButtons = false;
 
     //calculate sentiment
     $scope.tweetCount++;
     $scope.totalSentiment += data.sentiment;
     $scope.averageSentiment = $scope.totalSentiment / $scope.tweetCount ;
-    $scope.tps = $scope.tweetCount / ( (new Date().getTime() / 1000) - start);
+    $scope.tps = $scope.tweetCount / ( currentTime - start);
+
+    //add to graph data
+    $scope.plotCounter++;
+    if ($scope.plotData.length > 30) {
+      $scope.plotData.shift();
+    }
+    $scope.plotData.push([$scope.plotCounter, $scope.averageSentiment]);
 
     //if it has been two seconds since the last tweet, display it
-    var currentTime = new Date().getTime() / 1000;
     if ((currentTime - time) > 2) {
       time = currentTime;
 
       // panel_class
-      if (data.sentiment > 1)
+      if (data.sentiment > 6)
         data.panel_class = "panel-success";
-      else if (data.sentiment < -1)
+      else if (data.sentiment < 4)
         data.panel_class = "panel-danger";
       else
         data.panel_class = "panel-warning";
@@ -72,11 +81,19 @@ angular.module('twitter.controllers', []).
 
   //grab the most recent tweets
   $scope.start = function() {
+    start = new Date().getTime() / 1000.0;
+    time = new Date().getTime() / 1000.0;
+
     $scope.disableButtons = true;
 
+    //reset stats
     $scope.tweetCount = 0;
     $scope.totalSentiment = 0;
     $scope.averageSentiment = 0;
+
+    //reset graphs data
+    $scope.plotData = [[0, 0]];
+    $scope.plotCounter = 0;
 
     var input = $scope.inputData.text.trim();
     if (input.length > 0) {
@@ -89,6 +106,7 @@ angular.module('twitter.controllers', []).
 
   $scope.stop = function() {
     socket.emit('stop', null);
+    $scope.disableButtons = false;
   }
 
   $scope.init = function() {

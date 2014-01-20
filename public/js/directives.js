@@ -8,40 +8,40 @@ angular.module('twitter.directives', []).
       elm.text(version);
     };
   })
-  .directive('chart', ['$timeout', function($timeout) {
+  .directive('chart', function() {
     return {
-        restrict: 'E',
+        restrict: 'A',
         link: function(scope, elem, attrs) {
 
         	var chart = null,
         		options = {
         			series: {
-        				shadowSize: 0 //Drawing is faster w/o shadows
+        				lines: {
+                            lineWidth: 3,
+                            fill: true,
+                        }
         			},
         			yaxis: {
-        				min: -5,
-        				max: 5
+        				min: 0,
+        				max: 10,
         			},
         			xaxis: {
+
         				show: false
         			},
         		};
 
-        	var data = scope[attrs.ngModel];
-
-        	scope.$watch('data', function (v) {
+        	scope.$watchCollection(attrs.ngModel, function (v) {
         		if (!chart) {
-        			if (typeof v !== 'undefined' && v.length > 0) {
-        				chart = $.plot(elem, v, options);
-        				elem.show();
-        			}
+                    chart = $.plot(elem, [v], options);
+                    elem.show();                       
         		}
         		else {
-        			chart.setData(v);
+        			chart.setData([v]);
         			chart.setupGrid();
         			chart.draw();
         		}
         	});
         }
     };
-  }]);
+  });
