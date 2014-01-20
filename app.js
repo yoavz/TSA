@@ -15,10 +15,10 @@ var twitter = require('ntwitter');
 var sentiment = require('sentiment');
 
 var tweeter = new twitter({
-    consumer_key: 'T8i0P5EvZMjLYGEPzXWNw',
-    consumer_secret: 'YVcJyLCSwdNVPeQa4VlI9i5vOMqxdn1OvpEEt1yDQw',
-    access_token_key: '549040878-VFW3UTEJ0vcw1O0Fm8utT7loGtuqK3e4UQ00chnU',
-    access_token_secret: 'Q1Wo91Z5oFG1iKqoqBMC6eeKLHJRibOK0yje31nciTMQ5'
+    consumer_key: 'insert',
+    consumer_secret: 'secrets',
+    access_token_key: 'here',
+    access_token_secret: 'and here'
 });
 
 /**
