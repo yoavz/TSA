@@ -32,13 +32,11 @@ block body
       div.row
         .col-md-6
           label Type in a phrase to analyze a live stream of tweets containing it!
-          label Short, popular phrases such as "bieber", "obama", and "new york" work best.
+          label Short, popular phrases such as "justin", "obama", and "new york" work best.
           label Check out 
             a(href='http://whatthetrend.com/') whatthetrends.com
             |  for the interesting queries to try
           input.input-lg.form-control(type="text", ng-model="inputData.text", placeholder="#yoavz")
-        .col-md-6.text-center
-          h3 Sentiment vs. Time
       div.row
         .col-md-3.text-center.padding
           button.btn.btn-success.btn-lg(type="button", ng-click="start()", ng-disabled="disableButtons") Start
