@@ -43,7 +43,7 @@ angular.module('twitter.controllers', []).
   $scope.disableButtons = false;
 
   $scope.plotCounter = 0;
-  $scope.plotData = [[0, 0]];
+  $scope.plotData = [[0, 5]];
 
   socket.on('tweet', function (data) {
     var currentTime = new Date().getTime() / 1000.0;
@@ -81,26 +81,26 @@ angular.module('twitter.controllers', []).
 
   //grab the most recent tweets
   $scope.start = function() {
-    start = new Date().getTime() / 1000.0;
-    time = new Date().getTime() / 1000.0;
-
-    $scope.disableButtons = true;
-
-    //reset stats
-    $scope.tweetCount = 0;
-    $scope.totalSentiment = 0;
-    $scope.averageSentiment = 0;
-
-    //reset graphs data
-    $scope.plotData = [[0, 0]];
-    $scope.plotCounter = 0;
-
     var input = $scope.inputData.text.trim();
     if (input.length > 0) {
+      start = new Date().getTime() / 1000.0;
+      time = new Date().getTime() / 1000.0;
+
+      $scope.disableButtons = true;
+
+      //reset stats
+      $scope.tweetCount = 0;
+      $scope.totalSentiment = 0;
+      $scope.averageSentiment = 0;
+
+      //reset graphs data
+      $scope.plotData = [[0, 5]];
+      $scope.plotCounter = 0;
+
       socket.emit('start', {phrase: input});
       $scope.phrase = input;
     } else {
-      console.log('Invalid phrase')
+      alert('invalid phrase');
     }
   };
 
