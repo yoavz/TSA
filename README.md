@@ -16,71 +16,26 @@ _Note: Although Jade supports interpolation, you should be doing that mostly on 
 server and browser templating will convolute your app. Instead, use Jade as a syntactic sugar for
 HTML, and let AngularJS take care of interpolation on the browser side._
 
-## How to use it
+## TSA - Twitter Sentiment Analysis
 
-Clone the angular-socket-io-seed repository and start hacking!
+Type in any phrase you would like to get a live stream of tweets and a visualization of their sentiment.
+Uses Express, AngularJS, and socket.IO to plug into the twitter streaming api. The sentiment analysis is
+done through the [sentiment](https://npmjs.org/package/sentiment) node package, which uses the 
+[AFINN-111](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010) wordlist to analyze arbitrary
+blocks of text, (in our case tweets).
 
 ### Running the app
 
-Runs like a typical express app:
+clone the repository
 
 ```shell
+npm install
 node app.js
 ```
 
-### Running tests
-
-Coming soon!
-
-### Receiving updates from upstream
-
-Just fetch the changes and merge them into your project with git.
-
-### Updating `angular.js`
-
-Alternatively, you can update AngularJS with [Bower](http://bower.io):
-
-```shell
-bower update angular
-```
-
-## Example Application
-
-I created a [simple instant messaging application](https://github.com/btford/angular-socket-io-im)
-and wrote a [blog post](http://briantford.com/blog/angular-socket-io.html) walking through the app to
-illustrate using the seed.
-
-## Directory Layout
-    
-    app.js                  --> app config
-    bower.json              --> for bower
-    package.json            --> for npm
-    public/                 --> all of the files to be used in on the client side
-      css/                  --> css files
-        app.css             --> default stylesheet
-      img/                  --> image files
-      js/                   --> javascript files
-        app.js              --> declare top-level app module
-        controllers.js      --> application controllers
-        directives.js       --> custom angular directives
-        filters.js          --> custom angular filters
-        services.js         --> custom angular services
-      bower_components/
-        angular/            --> angular.js
-        angular-socket-io/  --> socket.io adapter for angular
-    routes/
-      index.js              --> route for serving HTML pages and partials
-    views/
-      index.jade            --> main page for app
-      layout.jade           --> doctype, title, head boilerplate
-      partials/             --> angular view partials (partial jade templates)
-        partial1.jade
-        partial2.jade
-
-
-
 ## Contact
 
+by [Yoav Zimmerman](http://yoavz.com) 
 For more information on AngularJS please check out http://angularjs.org/
 For more on Express and Jade, http://expressjs.com/ and http://jade-lang.com/ are
 your friends.
